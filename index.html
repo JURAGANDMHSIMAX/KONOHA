@@ -16,8 +16,11 @@
 :root {
   --orange: #ff6a00;
   --gold: #ffb347;
-  --red: #e52b18;
   --dark: #100907;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
@@ -35,12 +38,11 @@ body {
   background:
     linear-gradient(
       90deg,
-      rgba(10,5,4,.94),
-      rgba(18,7,4,.68),
-      rgba(10,5,4,.88)
+      rgba(10,5,4,.90),
+      rgba(18,7,4,.62),
+      rgba(10,5,4,.82)
     ),
     url("konoha.jpg") center center / cover no-repeat;
-  transform: scale(1.04);
 }
 
 .scene::after {
@@ -49,16 +51,11 @@ body {
   inset: 0;
   background:
     radial-gradient(
-      circle at 70% 45%,
-      rgba(255,77,0,.19),
-      transparent 45%
+      circle at 70% 40%,
+      rgba(255,77,0,.20),
+      transparent 48%
     ),
-    linear-gradient(
-      0deg,
-      #100907 0%,
-      transparent 45%,
-      rgba(0,0,0,.2)
-    );
+    linear-gradient(0deg, #100907 0%, transparent 60%);
 }
 
 .embers {
@@ -89,7 +86,7 @@ body {
   15% { opacity: .8; }
   85% { opacity: .6; }
   100% {
-    transform: translateY(-110vh) translateX(50px);
+    transform: translateY(-110vh) translateX(40px);
     opacity: 0;
   }
 }
@@ -100,7 +97,7 @@ header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 15px;
+  gap: 12px;
 }
 
 .logo {
@@ -115,11 +112,11 @@ header {
 
 .status {
   border: 1px solid rgba(255,120,40,.55);
-  background: rgba(255,90,0,.1);
+  background: rgba(255,90,0,.12);
   padding: 8px 12px;
   border-radius: 30px;
   color: #ffc18a;
-  font-size: 11px;
+  font-size: 10px;
   letter-spacing: 1px;
 }
 
@@ -129,11 +126,11 @@ main {
 }
 
 .hero {
-  min-height: 75vh;
+  min-height: 76vh;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1.1fr;
   align-items: center;
-  gap: 25px;
+  gap: 18px;
   padding: 25px 0 45px;
 }
 
@@ -150,11 +147,11 @@ h1 {
   line-height: .98;
   font-weight: 900;
   letter-spacing: -2px;
-  text-shadow: 0 0 35px rgba(255,70,0,.2);
 }
 
 h1 span {
   color: var(--orange);
+  text-shadow: 0 0 30px rgba(255,70,0,.2);
 }
 
 .subtitle {
@@ -198,25 +195,28 @@ h1 span {
   background: rgba(255,255,255,.04);
 }
 
+/* AREA DUA SKIN NARUTO */
 .naruto-stage {
   position: relative;
-  min-height: 440px;
+  width: 100%;
+  min-width: 0;
+  min-height: 460px;
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   isolation: isolate;
 }
 
 .fire-ring {
   position: absolute;
-  width: 310px;
-  height: 310px;
-  border: 2px solid rgba(255,100,0,.5);
+  width: 300px;
+  height: 300px;
+  border: 2px solid rgba(255,100,0,.48);
   border-radius: 50%;
   box-shadow:
     0 0 25px rgba(255,70,0,.25),
     inset 0 0 35px rgba(255,70,0,.14);
-  animation: ring 12s linear infinite;
+  animation: ring 18s linear infinite;
   z-index: -1;
 }
 
@@ -224,13 +224,13 @@ h1 span {
 .fire-ring::after {
   content: "";
   position: absolute;
-  inset: 17px;
+  inset: 18px;
   border: 1px dashed rgba(255,175,65,.5);
   border-radius: 50%;
 }
 
 .fire-ring::after {
-  inset: 35px;
+  inset: 38px;
   border-style: solid;
   border-color: rgba(255,60,0,.3);
 }
@@ -241,48 +241,56 @@ h1 span {
 
 .naruto {
   position: absolute;
-  bottom: 0;
-  height: 390px;
-  max-width: 85%;
+  bottom: 28px;
+  width: 55%;
+  height: 360px;
   object-fit: contain;
   object-position: bottom center;
-  filter: drop-shadow(0 0 18px rgba(255,75,0,.3));
+  filter: drop-shadow(0 0 15px rgba(255,75,0,.25));
   animation: float 5s ease-in-out infinite;
 }
 
+/* Skin pertama: kiri dan tetap terlihat */
 .naruto.back {
-  height: 335px;
-  transform: translate(-85px, 0);
-  opacity: .75;
-  filter: drop-shadow(0 0 15px rgba(255,100,0,.25));
+  left: 0;
+  height: 310px;
+  width: 52%;
+  z-index: 2;
+  opacity: 1;
+  transform: translateX(-4px);
   animation-delay: -2.5s;
 }
 
+/* Skin kedua: kanan */
 .naruto.front {
-  transform: translateX(65px);
+  right: 0;
+  height: 375px;
+  width: 59%;
+  z-index: 3;
+  transform: translateX(4px);
 }
 
 @keyframes float {
-  0%, 100% { translate: 0 0; }
-  50% { translate: 0 -10px; }
+  0%, 100% { margin-bottom: 0; }
+  50% { margin-bottom: 10px; }
 }
 
 .skin-label {
   position: absolute;
-  bottom: 15px;
+  bottom: 0;
   left: 50%;
   transform: translateX(-50%);
   width: max-content;
   max-width: 95%;
-  padding: 10px 16px;
+  padding: 10px 15px;
   border-radius: 30px;
-  background: rgba(15,7,4,.8);
+  background: rgba(15,7,4,.9);
   border: 1px solid rgba(255,130,40,.55);
   color: #ffd2a7;
-  font-size: 11px;
+  font-size: 10px;
   letter-spacing: 2px;
   text-align: center;
-  backdrop-filter: blur(8px);
+  z-index: 4;
 }
 
 section {
@@ -305,22 +313,25 @@ section {
   margin-bottom: 22px;
 }
 
-.bio-grid {
+.bio-grid,
+.social-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 13px;
 }
 
-.bio-card {
+.bio-card,
+.social-card {
   padding: 20px;
   border-radius: 12px;
-  background: rgba(24,13,9,.78);
+  background: rgba(24,13,9,.82);
   border: 1px solid rgba(255,130,50,.2);
-  transition: border-color .25s, transform .25s;
+  transition: .25s;
 }
 
-.bio-card:hover {
-  border-color: rgba(255,130,50,.65);
+.bio-card:hover,
+.social-card:hover {
+  border-color: rgba(255,130,50,.7);
   transform: translateY(-3px);
 }
 
@@ -333,29 +344,13 @@ section {
 .bio-card h3 {
   margin-top: 9px;
   font-size: 15px;
-}
-
-.social-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 13px;
+  line-height: 1.5;
 }
 
 .social-card {
   display: block;
-  text-decoration: none;
   color: white;
-  background: rgba(24,13,9,.78);
-  border: 1px solid rgba(255,130,50,.2);
-  border-radius: 12px;
-  padding: 20px;
-  transition: .25s;
-}
-
-.social-card:hover {
-  border-color: var(--orange);
-  background: rgba(70,25,9,.8);
-  transform: translateY(-3px);
+  text-decoration: none;
 }
 
 .social-card strong {
@@ -367,32 +362,73 @@ section {
 .social-card span {
   font-size: 12px;
   color: #c5b4aa;
+  line-height: 1.6;
 }
 
 footer {
   text-align: center;
   color: #907e73;
   font-size: 11px;
+  line-height: 1.8;
   padding: 30px 15px;
   border-top: 1px solid rgba(255,255,255,.08);
   margin-top: 30px;
 }
 
 @media (max-width: 720px) {
-  header { padding: 20px 5%; }
+  header {
+    padding: 20px 5%;
+  }
+
   .hero {
     grid-template-columns: 1fr;
     padding-top: 25px;
   }
-  .hero-copy { text-align: center; }
-  .subtitle { margin-left: auto; margin-right: auto; }
-  .hero-buttons { justify-content: center; }
-  .naruto-stage { min-height: 380px; }
-  .naruto { height: 340px; }
-  .naruto.back { height: 285px; transform: translateX(-55px); }
-  .naruto.front { transform: translateX(40px); }
-  .fire-ring { width: 260px; height: 260px; }
-  .bio-grid, .social-grid { grid-template-columns: 1fr; }
+
+  .hero-copy {
+    text-align: center;
+  }
+
+  .subtitle {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .hero-buttons {
+    justify-content: center;
+  }
+
+  .naruto-stage {
+    min-height: 390px;
+    overflow: hidden;
+  }
+
+  .fire-ring {
+    width: 245px;
+    height: 245px;
+  }
+
+  .naruto {
+    bottom: 30px;
+    height: 315px;
+  }
+
+  .naruto.back {
+    left: 1%;
+    width: 53%;
+    height: 275px;
+  }
+
+  .naruto.front {
+    right: 0;
+    width: 58%;
+    height: 330px;
+  }
+
+  .bio-grid,
+  .social-grid {
+    grid-template-columns: 1fr;
+  }
 }
 </style>
 </head>
