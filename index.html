@@ -13,72 +13,70 @@ body {
   font-family: Arial, sans-serif;
   color: white;
   background: #090909;
-  min-height: 100vh;
 }
 
 .hero {
   min-height: 100vh;
-  position: relative;
+  padding: 35px 18px;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 35px 18px;
-  overflow: hidden;
   background:
-    linear-gradient(rgba(0,0,0,.65), rgba(0,0,0,.88)),
-    url("konoha.jpg") center center / cover no-repeat;
+    radial-gradient(circle at top, #632500 0%, #180b05 45%, #050505 100%);
 }
 
 .container {
   width: 100%;
-  max-width: 900px;
+  max-width: 850px;
   text-align: center;
-  position: relative;
-  z-index: 1;
 }
 
-.logo {
+.logo-title {
   color: #ff6a00;
-  font-size: clamp(28px, 7vw, 52px);
+  font-size: clamp(30px, 8vw, 55px);
   font-weight: 900;
-  text-shadow: 0 0 18px rgba(255,90,0,.7);
-  letter-spacing: 2px;
+  letter-spacing: 3px;
+  text-shadow: 0 0 20px rgba(255, 106, 0, .65);
 }
 
 .subtitle {
   margin-top: 10px;
   color: #ddd;
-  letter-spacing: 3px;
   font-size: 13px;
+  letter-spacing: 3px;
 }
 
-.photos {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 18px;
+.logo-frame {
   margin: 30px auto;
-  flex-wrap: wrap;
+  width: 230px;
+  height: 230px;
+  max-width: 75vw;
+  max-height: 75vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  border: 3px solid #ff6a00;
+  border-radius: 25px;
+  background: #111;
+  box-shadow: 0 0 30px rgba(255, 106, 0, .35);
 }
 
-.naruto {
-  width: min(40%, 220px);
-  height: 250px;
-  object-fit: cover;
-  object-position: center;
-  border: 3px solid #ff6a00;
-  border-radius: 16px;
-  box-shadow: 0 0 22px rgba(255,90,0,.45);
+.logo-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 15px;
 }
 
 .profile {
   max-width: 650px;
   margin: 0 auto;
-  padding: 25px 20px;
-  border: 1px solid rgba(255,106,0,.6);
+  padding: 25px 18px;
+  background: rgba(15, 15, 15, .94);
+  border: 1px solid #a9470a;
   border-radius: 18px;
-  background: rgba(0,0,0,.72);
-  box-shadow: 0 0 25px rgba(255,80,0,.15);
 }
 
 .profile h2 {
@@ -89,17 +87,17 @@ body {
 
 .bio {
   color: #eee;
-  line-height: 1.9;
   font-size: 15px;
+  line-height: 1.9;
 }
 
 .badge {
   display: inline-block;
-  margin-top: 16px;
-  padding: 9px 16px;
+  margin-top: 18px;
+  padding: 10px 17px;
+  border-radius: 25px;
   background: #ff6a00;
   color: #111;
-  border-radius: 30px;
   font-size: 12px;
   font-weight: bold;
 }
@@ -107,18 +105,18 @@ body {
 .socials {
   display: flex;
   justify-content: center;
-  gap: 12px;
   flex-wrap: wrap;
+  gap: 12px;
   margin-top: 24px;
 }
 
 .socials a {
-  text-decoration: none;
+  padding: 12px 17px;
   color: white;
-  background: #191919;
+  background: #1b1b1b;
   border: 1px solid #ff6a00;
-  padding: 12px 18px;
   border-radius: 10px;
+  text-decoration: none;
   transition: .2s;
 }
 
@@ -128,19 +126,14 @@ body {
 }
 
 footer {
-  margin-top: 28px;
-  font-size: 12px;
+  margin-top: 25px;
   color: #aaa;
+  font-size: 12px;
 }
 
 @media (max-width: 480px) {
-  .naruto {
-    width: 42%;
-    height: 190px;
-  }
-
   .profile {
-    padding: 20px 14px;
+    padding: 22px 14px;
   }
 
   .bio {
@@ -149,20 +142,14 @@ footer {
 }
 </style></head><body>
 <section class="hero">
-  <main class="container"><div class="logo">R4 KROCO</div>
-<div class="subtitle">HSI MAX • CONTENT CREATOR</div>
+  <main class="container"><h1 class="logo-title">R4 KROCO</h1>
+<p class="subtitle">HSI MAX • CONTENT CREATOR</p>
 
-<div class="photos">
+<div class="logo-frame">
   <img
-    class="naruto"
+    class="logo-image"
     src="./IMG_20261023_225046.png"
-    alt="Foto Naruto pertama"
-  >
-
-  <img
-    class="naruto"
-    src="./naruto2.png"
-    alt="Foto Naruto kedua"
+    alt="Logo R4 KROCO"
   >
 </div>
 
@@ -177,7 +164,7 @@ footer {
     Pernah menjadi Admin HSI
   </div>
 
-  <div class="badge">HSI MAX PLAYER</div>
+  <span class="badge">HSI MAX PLAYER</span>
 
   <div class="socials">
     <a href="https://www.tiktok.com/@r4_kroco"
