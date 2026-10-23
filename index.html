@@ -3,879 +3,546 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#100906">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>R4 KROCO | HSI MAX</title>
 
 <style>
-:root {
-  --fire: #ff762d;
-  --gold: #ffc17b;
-  --red: #e74325;
-  --text: #fff6ef;
-  --muted: #c0ada2;
-  --line: #ffad6b2a;
-  --bg: #100906;
-}
-
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-html { scroll-behavior: smooth; }
+:root {
+  --orange: #ff6a00;
+  --gold: #ffb347;
+  --red: #e52b18;
+  --dark: #100907;
+}
 
 body {
-  color: var(--text);
-  background: var(--bg);
-  font-family: Arial, Helvetica, sans-serif;
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
+  color: white;
+  background: var(--dark);
   overflow-x: hidden;
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
-  -webkit-tap-highlight-color: transparent;
-}
-
-.container {
-  width: min(1100px, 90%);
-  margin: auto;
-}
-
-/* KONOHAGAKURE BACKGROUND */
-
-.village-background {
+.scene {
   position: fixed;
   inset: 0;
-  z-index: -5;
-  background-image:
-    linear-gradient(
-      180deg,
-      rgba(12, 8, 8, .58),
-      rgba(16, 8, 5, .82) 55%,
-      #100906 100%
-    ),
-    url("https://static.wikia.nocookie.net/naruto/images/4/4a/Konohagakure.png/revision/latest");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  transform: scale(1.04);
-  animation: backgroundDrift 28s ease-in-out infinite alternate;
-}
-
-@keyframes backgroundDrift {
-  from { transform: scale(1.04) translateX(0); }
-  to { transform: scale(1.12) translateX(-1%); }
-}
-
-.background-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: -4;
-  pointer-events: none;
-  background:
-    radial-gradient(ellipse at 50% 40%, transparent 0%, #10090665 80%),
-    linear-gradient(90deg, #10090655, transparent 50%, #10090655);
-}
-
-.ambient {
-  position: fixed;
-  width: 350px;
-  height: 350px;
-  border-radius: 50%;
-  filter: blur(100px);
-  pointer-events: none;
   z-index: -3;
-  opacity: .17;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(10,5,4,.94),
+      rgba(18,7,4,.68),
+      rgba(10,5,4,.88)
+    ),
+    url("konoha.jpg") center center / cover no-repeat;
+  transform: scale(1.04);
 }
 
-.ambient-one {
-  top: -160px;
-  left: -160px;
-  background: #ff4e20;
+.scene::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(
+      circle at 70% 45%,
+      rgba(255,77,0,.19),
+      transparent 45%
+    ),
+    linear-gradient(
+      0deg,
+      #100907 0%,
+      transparent 45%,
+      rgba(0,0,0,.2)
+    );
 }
-
-.ambient-two {
-  right: -180px;
-  bottom: 5%;
-  background: #e84e17;
-}
-
-/* FLOATING EMBERS */
 
 .embers {
   position: fixed;
   inset: 0;
+  z-index: -1;
   overflow: hidden;
   pointer-events: none;
-  z-index: 5;
 }
 
 .ember {
   position: absolute;
-  bottom: -15px;
-  left: var(--x);
-  width: var(--size);
-  height: var(--size);
+  bottom: -20px;
+  width: 4px;
+  height: 4px;
   border-radius: 50%;
-  background: #ff9c51;
+  background: #ff8a27;
+  box-shadow: 0 0 12px #ff4d00;
+  animation: rise linear infinite;
   opacity: 0;
-  box-shadow: 0 0 9px #ff6b32;
-  animation: rise var(--duration) linear var(--delay) infinite;
 }
 
 @keyframes rise {
   0% {
-    transform: translate(0, 0);
+    transform: translateY(0) translateX(0);
     opacity: 0;
   }
-  15% { opacity: .5; }
-  75% { opacity: .25; }
+  15% { opacity: .8; }
+  85% { opacity: .6; }
   100% {
-    transform: translate(var(--drift), -110vh);
+    transform: translateY(-110vh) translateX(50px);
     opacity: 0;
   }
 }
 
-/* NAVBAR */
-
 header {
-  height: 78px;
+  width: 100%;
+  padding: 22px 7%;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid var(--line);
+  gap: 15px;
 }
 
-.brand {
-  font-size: 23px;
+.logo {
+  font-size: 21px;
   font-weight: 900;
   letter-spacing: 2px;
 }
 
-.brand span { color: var(--fire); }
-
-.nav-label {
-  font-size: 10px;
-  letter-spacing: 2px;
-  color: #ffcfaa;
-  border: 1px solid var(--line);
-  border-radius: 30px;
-  padding: 9px 13px;
-  background: #160b08a6;
+.logo span {
+  color: var(--orange);
 }
 
-/* HERO */
+.status {
+  border: 1px solid rgba(255,120,40,.55);
+  background: rgba(255,90,0,.1);
+  padding: 8px 12px;
+  border-radius: 30px;
+  color: #ffc18a;
+  font-size: 11px;
+  letter-spacing: 1px;
+}
+
+main {
+  width: min(1100px, 90%);
+  margin: auto;
+}
 
 .hero {
-  min-height: 620px;
+  min-height: 75vh;
   display: grid;
-  grid-template-columns: .92fr 1.08fr;
+  grid-template-columns: 1fr 1fr;
   align-items: center;
-  gap: 10px;
-  padding: 35px 0;
+  gap: 25px;
+  padding: 25px 0 45px;
 }
 
-.hero-copy {
-  z-index: 2;
-  animation: enterLeft .9s ease both;
-}
-
-.eyebrow {
+.tag {
   color: var(--gold);
-  font-size: 10px;
-  font-weight: 800;
+  font-size: 12px;
+  font-weight: bold;
   letter-spacing: 4px;
-  margin-bottom: 24px;
+  margin-bottom: 18px;
 }
 
 h1 {
-  font-size: clamp(52px, 7vw, 85px);
+  font-size: clamp(42px, 7vw, 76px);
+  line-height: .98;
   font-weight: 900;
-  line-height: .95;
-  letter-spacing: -4px;
+  letter-spacing: -2px;
+  text-shadow: 0 0 35px rgba(255,70,0,.2);
 }
 
 h1 span {
-  display: block;
-  margin-top: 10px;
-  color: transparent;
-  background: linear-gradient(110deg, #fff0d8, #ffb568 45%, #ff522b);
-  background-clip: text;
-  -webkit-background-clip: text;
+  color: var(--orange);
 }
 
-.description {
-  color: var(--muted);
-  font-size: 14px;
-  line-height: 1.9;
-  max-width: 390px;
-  margin-top: 23px;
+.subtitle {
+  margin-top: 20px;
+  color: #d6c5bc;
+  font-size: 15px;
+  line-height: 1.8;
+  max-width: 450px;
 }
 
-.actions {
+.hero-buttons {
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
-  margin-top: 28px;
+  margin-top: 27px;
 }
 
 .btn {
-  min-height: 46px;
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  gap: 9px;
-  padding: 0 19px;
-  border-radius: 9px;
-  font-size: 12px;
-  font-weight: 800;
-  transition: transform .25s ease, background .25s ease;
+  display: inline-block;
+  padding: 13px 18px;
+  border-radius: 7px;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: bold;
+  transition: transform .25s, background .25s;
 }
 
-.btn:hover { transform: translateY(-3px); }
+.btn:hover {
+  transform: translateY(-3px);
+}
 
 .btn-primary {
-  color: #210b04;
-  background: linear-gradient(110deg, #ffd18e, #ff762d);
+  color: white;
+  background: linear-gradient(110deg, #ff4b00, #ff8b20);
+  box-shadow: 0 5px 25px rgba(255,70,0,.2);
 }
 
-.btn-secondary {
-  border: 1px solid var(--line);
-  background: #160c09cc;
+.btn-outline {
+  border: 1px solid rgba(255,255,255,.3);
+  color: white;
+  background: rgba(255,255,255,.04);
 }
 
-.btn-secondary:hover { background: #ff762d15; }
-
-.hero-note {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-top: 30px;
-  color: #d2a994;
-  font-size: 10px;
-  letter-spacing: 1.5px;
-}
-
-.dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: var(--fire);
-  box-shadow: 0 0 10px #ff762d;
-}
-
-/* TWO NARUTO SKINS */
-
-.character-scene {
+.naruto-stage {
   position: relative;
-  min-width: 0;
-  height: 520px;
+  min-height: 440px;
   display: flex;
   justify-content: center;
   align-items: center;
   isolation: isolate;
-  animation: enterRight 1s ease both;
 }
 
-.scene-glow {
+.fire-ring {
   position: absolute;
-  z-index: -2;
-  width: 90%;
-  height: 85%;
+  width: 310px;
+  height: 310px;
+  border: 2px solid rgba(255,100,0,.5);
   border-radius: 50%;
-  background: radial-gradient(
-    ellipse,
-    #ff762d30 0%,
-    #b62d1720 45%,
-    transparent 72%
-  );
-  animation: breathe 5s ease-in-out infinite;
-}
-
-.scene-ring {
-  position: absolute;
+  box-shadow:
+    0 0 25px rgba(255,70,0,.25),
+    inset 0 0 35px rgba(255,70,0,.14);
+  animation: ring 12s linear infinite;
   z-index: -1;
-  width: 320px;
-  height: 320px;
-  border: 1px solid #ffb27432;
-  border-radius: 50%;
-  animation: slowRotate 35s linear infinite;
 }
 
-.scene-ring::before {
+.fire-ring::before,
+.fire-ring::after {
   content: "";
   position: absolute;
-  inset: 20px;
-  border: 1px dashed #ff8a4a38;
+  inset: 17px;
+  border: 1px dashed rgba(255,175,65,.5);
   border-radius: 50%;
 }
 
-.scene-ring::after {
-  content: "";
-  position: absolute;
-  top: 35px;
-  left: 50px;
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: var(--gold);
-  box-shadow: 0 0 12px var(--fire);
+.fire-ring::after {
+  inset: 35px;
+  border-style: solid;
+  border-color: rgba(255,60,0,.3);
 }
 
-.character {
-  position: absolute;
-  bottom: 12px;
-  height: 94%;
-  width: 64%;
-  display: flex;
-  justify-content: center;
-  align-items: end;
-  animation: characterFloat 5.5s ease-in-out infinite;
-}
-
-.character img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  object-position: bottom center;
-  filter: drop-shadow(0 20px 25px #000b);
-  transition: transform .4s ease, filter .4s ease;
-}
-
-.character:hover img {
-  transform: translateY(-5px) scale(1.02);
-  filter: drop-shadow(0 12px 28px #ff702c45);
-}
-
-/* Two poses overlap like a cinematic poster */
-.character.back {
-  width: 55%;
-  height: 78%;
-  left: 1%;
-  bottom: 18px;
-  opacity: .86;
-  transform: rotate(-5deg);
-  animation-delay: -2.5s;
-  z-index: 1;
-}
-
-.character.front {
-  width: 72%;
-  height: 100%;
-  right: -2%;
-  z-index: 2;
-}
-
-.character.front img {
-  filter: drop-shadow(0 18px 30px #000c);
-}
-
-.character-label {
-  position: absolute;
-  z-index: 3;
-  bottom: 5px;
-  left: 50%;
-  transform: translateX(-50%);
-  white-space: nowrap;
-  font-size: 9px;
-  letter-spacing: 3px;
-  color: #ffd0a8;
-  text-shadow: 0 2px 8px #000;
-  padding: 8px 12px;
-  border: 1px solid #ffad6b30;
-  border-radius: 30px;
-  background: #170b08c9;
-}
-
-.image-fallback {
-  display: none;
-  position: absolute;
-  inset: 0;
-  align-items: center;
-  justify-content: center;
-  padding: 15px;
-}
-
-.fallback-card {
-  max-width: 320px;
-  text-align: center;
-  padding: 35px 22px;
-  border: 1px solid var(--line);
-  border-radius: 22px;
-  background: linear-gradient(145deg, #2c150c, #130a07);
-}
-
-.fallback-kanji {
-  font-size: 66px;
-  color: var(--fire);
-  font-weight: 900;
-}
-
-.fallback-card h2 {
-  font-size: 18px;
-  margin: 10px 0;
-}
-
-.fallback-card p {
-  font-size: 12px;
-  color: var(--muted);
-  line-height: 1.8;
-}
-
-@keyframes characterFloat {
-  0%, 100% { translate: 0 0; }
-  50% { translate: 0 -9px; }
-}
-
-@keyframes breathe {
-  0%, 100% { scale: .95; opacity: .75; }
-  50% { scale: 1.05; opacity: 1; }
-}
-
-@keyframes slowRotate {
+@keyframes ring {
   to { transform: rotate(360deg); }
 }
 
-@keyframes enterLeft {
-  from { opacity: 0; transform: translateX(-22px); }
-  to { opacity: 1; transform: translateX(0); }
+.naruto {
+  position: absolute;
+  bottom: 0;
+  height: 390px;
+  max-width: 85%;
+  object-fit: contain;
+  object-position: bottom center;
+  filter: drop-shadow(0 0 18px rgba(255,75,0,.3));
+  animation: float 5s ease-in-out infinite;
 }
 
-@keyframes enterRight {
-  from { opacity: 0; transform: translateX(22px); }
-  to { opacity: 1; transform: translateX(0); }
+.naruto.back {
+  height: 335px;
+  transform: translate(-85px, 0);
+  opacity: .75;
+  filter: drop-shadow(0 0 15px rgba(255,100,0,.25));
+  animation-delay: -2.5s;
 }
 
-/* SECTIONS */
+.naruto.front {
+  transform: translateX(65px);
+}
 
-.section {
-  margin-top: 27px;
-  padding: 29px;
-  border: 1px solid var(--line);
-  border-radius: 18px;
-  background: linear-gradient(145deg, #1d100de8, #100907f2);
-  box-shadow: 0 18px 50px #0003;
+@keyframes float {
+  0%, 100% { translate: 0 0; }
+  50% { translate: 0 -10px; }
+}
+
+.skin-label {
+  position: absolute;
+  bottom: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: max-content;
+  max-width: 95%;
+  padding: 10px 16px;
+  border-radius: 30px;
+  background: rgba(15,7,4,.8);
+  border: 1px solid rgba(255,130,40,.55);
+  color: #ffd2a7;
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-align: center;
   backdrop-filter: blur(8px);
-  transition: border-color .3s ease;
 }
 
-.section:hover { border-color: #ff9a5a55; }
+section {
+  padding: 35px 0;
+}
 
-.section-heading {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 12px;
+.section-title {
+  font-size: 27px;
+  margin-bottom: 8px;
+}
+
+.section-title span {
+  color: var(--orange);
+}
+
+.section-desc {
+  color: #b7a69d;
+  font-size: 13px;
+  line-height: 1.7;
   margin-bottom: 22px;
 }
 
-.section-heading h2 { font-size: 20px; }
-.section-heading h2 span { color: var(--fire); }
+.bio-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 13px;
+}
 
-.section-number {
-  color: #c19882;
+.bio-card {
+  padding: 20px;
+  border-radius: 12px;
+  background: rgba(24,13,9,.78);
+  border: 1px solid rgba(255,130,50,.2);
+  transition: border-color .25s, transform .25s;
+}
+
+.bio-card:hover {
+  border-color: rgba(255,130,50,.65);
+  transform: translateY(-3px);
+}
+
+.bio-card small {
+  color: var(--orange);
   font-size: 10px;
   letter-spacing: 2px;
 }
 
-.bio-grid, .social-grid {
+.bio-card h3 {
+  margin-top: 9px;
+  font-size: 15px;
+}
+
+.social-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 13px;
 }
-
-.bio-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-  padding: 16px;
-  border: 1px solid #ffad6b15;
-  border-radius: 11px;
-  background: #ffffff04;
-  color: #ecd9ce;
-  font-size: 12px;
-  line-height: 1.8;
-  transition: transform .25s ease, border-color .25s ease;
-}
-
-.bio-item:hover {
-  transform: translateY(-3px);
-  border-color: #ff9c5850;
-}
-
-.mark { color: var(--fire); }
 
 .social-card {
-  display: flex;
-  align-items: center;
-  gap: 13px;
-  min-width: 0;
-  padding: 17px;
-  border: 1px solid #ffad6b1b;
-  border-radius: 13px;
-  background: #ffffff04;
-  transition: transform .25s ease, border-color .25s ease,
-              background .25s ease;
+  display: block;
+  text-decoration: none;
+  color: white;
+  background: rgba(24,13,9,.78);
+  border: 1px solid rgba(255,130,50,.2);
+  border-radius: 12px;
+  padding: 20px;
+  transition: .25s;
 }
 
 .social-card:hover {
-  transform: translateY(-4px);
-  border-color: #ff9c5870;
-  background: #ff7b2b0c;
+  border-color: var(--orange);
+  background: rgba(70,25,9,.8);
+  transform: translateY(-3px);
 }
 
-.social-icon {
-  width: 43px;
-  height: 43px;
-  flex-shrink: 0;
-  display: grid;
-  place-items: center;
-  border-radius: 12px;
-  background: #ff762d18;
-  color: #ffc18c;
-  font-size: 20px;
-}
-
-.social-info { min-width: 0; }
-
-.social-info strong {
+.social-card strong {
   display: block;
-  font-size: 13px;
-  margin-bottom: 5px;
+  font-size: 15px;
+  margin-bottom: 7px;
 }
 
-.social-info small {
-  display: block;
-  color: var(--muted);
-  font-size: 10px;
-  line-height: 1.6;
-  overflow-wrap: anywhere;
+.social-card span {
+  font-size: 12px;
+  color: #c5b4aa;
 }
-
-.arrow {
-  margin-left: auto;
-  color: var(--gold);
-  transition: transform .25s ease;
-}
-
-.social-card:hover .arrow { transform: translate(3px, -3px); }
 
 footer {
-  padding: 38px 0 27px;
   text-align: center;
-  color: #ad8977;
-  font-size: 10px;
-  line-height: 2;
-  letter-spacing: 2px;
+  color: #907e73;
+  font-size: 11px;
+  padding: 30px 15px;
+  border-top: 1px solid rgba(255,255,255,.08);
+  margin-top: 30px;
 }
 
-footer span { color: var(--gold); }
-
-/* SCROLL REVEAL */
-
-.reveal {
-  opacity: 0;
-  transform: translateY(18px);
-  transition: opacity .7s ease, transform .7s ease;
-}
-
-.reveal.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* MOBILE */
-
-@media (max-width: 760px) {
-  .container { width: 90%; }
-  header { height: 70px; }
-  .brand { font-size: 19px; }
-
-  .nav-label {
-    font-size: 8px;
-    letter-spacing: 1px;
-    padding: 8px 9px;
-  }
-
+@media (max-width: 720px) {
+  header { padding: 20px 5%; }
   .hero {
     grid-template-columns: 1fr;
-    padding-top: 46px;
-    gap: 0;
+    padding-top: 25px;
   }
-
   .hero-copy { text-align: center; }
-  .eyebrow { justify-content: center; }
-
-  h1 {
-    font-size: clamp(50px, 12vw, 75px);
-    letter-spacing: -3px;
-  }
-
-  .description {
-    margin: 20px auto 0;
-    font-size: 13px;
-  }
-
-  .actions, .hero-note { justify-content: center; }
-
-  .character-scene {
-    height: min(112vw, 450px);
-    margin-top: 10px;
-  }
-
-  .scene-ring {
-    width: min(75vw, 300px);
-    height: min(75vw, 300px);
-  }
-
-  .character.back {
-    width: 59%;
-    height: 78%;
-    left: -1%;
-  }
-
-  .character.front {
-    width: 74%;
-    height: 98%;
-    right: -2%;
-  }
-
-  .section { padding: 22px 17px; }
+  .subtitle { margin-left: auto; margin-right: auto; }
+  .hero-buttons { justify-content: center; }
+  .naruto-stage { min-height: 380px; }
+  .naruto { height: 340px; }
+  .naruto.back { height: 285px; transform: translateX(-55px); }
+  .naruto.front { transform: translateX(40px); }
+  .fire-ring { width: 260px; height: 260px; }
   .bio-grid, .social-grid { grid-template-columns: 1fr; }
-  .section-heading h2 { font-size: 18px; }
-}
-
-@media (max-width: 370px) {
-  .nav-label { font-size: 7px; }
-  .brand { font-size: 17px; }
-  .btn { padding: 0 13px; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation: none !important;
-    transition: none !important;
-    scroll-behavior: auto !important;
-  }
-
-  .reveal {
-    opacity: 1;
-    transform: none;
-  }
 }
 </style>
 </head>
 
 <body>
-<div class="village-background"></div>
-<div class="background-overlay"></div>
-<div class="ambient ambient-one"></div>
-<div class="ambient ambient-two"></div>
+<div class="scene"></div>
 <div class="embers" id="embers"></div>
 
-<div class="container">
-  <header>
-    <a href="#" class="brand">R4 <span>KROCO.</span></a>
-    <div class="nav-label">KONOHA · FIRE EDITION</div>
-  </header>
+<header>
+  <div class="logo">R4 <span>KROCO</span></div>
+  <div class="status">● HSI MAX CREATOR</div>
+</header>
 
-  <main>
-    <section class="hero">
-      <div class="hero-copy">
-        <div class="eyebrow">WELCOME TO MY WORLD</div>
+<main>
+  <div class="hero">
+    <div class="hero-copy">
+      <div class="tag">FIRE STYLE · HSI MAX</div>
 
-        <h1>
-          R4 KROCO
-          <span>HSI MAX.</span>
-        </h1>
+      <h1>R4<br><span>KROCO.</span></h1>
 
-        <p class="description">
-          Dari pemain old sampai content creator.
-          Menciptakan cinematic, berkarya, dan terus
-          berkembang bersama HSI MAX.
-        </p>
+      <p class="subtitle">
+        CONTENT CREATOR HSI MAX. Pemain old HSI biasa sampai MAX.
+        Dari cinematic sampai dunia HSI, perjalanan terus berlanjut.
+      </p>
 
-        <div class="actions">
-          <a class="btn btn-primary"
-             href="https://www.tiktok.com/@r4_kroco?_r=1&_t=ZS-9AnS3OFBXPN"
-             target="_blank" rel="noopener noreferrer">
-            TikTok <span>↗</span>
-          </a>
-
-          <a class="btn btn-secondary" href="#tentang">
-            Tentang Gue <span>↓</span>
-          </a>
-        </div>
-
-        <div class="hero-note">
-          <span class="dot"></span>
-          <span>CONTENT CREATOR · BATCH 1 & 2</span>
-        </div>
-      </div>
-
-      <div class="character-scene">
-        <div class="scene-glow"></div>
-        <div class="scene-ring"></div>
-
-        <!-- SKIN 1: Naruto versi klasik / awal -->
-        <div class="character back">
-          <img
-            src="https://static.wikia.nocookie.net/naruto/images/5/5d/Naruto_Part_I.png/revision/latest"
-            alt="Naruto Uzumaki versi klasik"
-            loading="eager"
-            onerror="this.style.display='none';"
-          >
-        </div>
-
-        <!-- SKIN 2: Naruto Shippuden -->
-        <div class="character front">
-          <img
-            src="https://static.wikia.nocookie.net/naruto/images/9/9d/Naruto_Part_II.png/revision/latest"
-            alt="Naruto Uzumaki Shippuden"
-            loading="eager"
-            onerror="this.style.display='none';"
-          >
-        </div>
-
-        <div class="image-fallback" id="imageFallback">
-          <div class="fallback-card">
-            <div class="fallback-kanji">火影</div>
-            <h2>NARUTO UZUMAKI</h2>
-            <p>HIDDEN LEAF<br>NEVER GIVE UP.</p>
-          </div>
-        </div>
-
-        <div class="character-label">NARUTO · TWO ERAS</div>
-      </div>
-    </section>
-
-    <section class="section reveal" id="tentang">
-      <div class="section-heading">
-        <h2><span>01 /</span> Tentang Gue</h2>
-        <div class="section-number">PROFILE</div>
-      </div>
-
-      <div class="bio-grid">
-        <div class="bio-item"><span class="mark">✦</span><span>CONTENT CREATOR HSI MAX</span></div>
-        <div class="bio-item"><span class="mark">✦</span><span>PEMAIN OLD — HSI BIASA & MAX</span></div>
-        <div class="bio-item"><span class="mark">✦</span><span>JADI CREATOR BATCH 1 & 2</span></div>
-        <div class="bio-item"><span class="mark">✦</span><span>PERNAH JUARA 1 SAAT PERTAMA KALI LOMBA CINEMATIC — ERA HSI MAJA PAHIT</span></div>
-        <div class="bio-item"><span class="mark">✦</span><span>PERNAH JADI ADMIN HSI</span></div>
-      </div>
-    </section>
-
-    <section class="section reveal" id="sosial">
-      <div class="section-heading">
-        <h2><span>02 /</span> Find Me</h2>
-        <div class="section-number">SOCIAL LINKS</div>
-      </div>
-
-      <div class="social-grid">
-        <a class="social-card"
-           href="https://www.tiktok.com/@r4_kroco?_r=1&_t=ZS-9AnS3OFBXPN"
-           target="_blank" rel="noopener noreferrer">
-          <div class="social-icon">♪</div>
-          <div class="social-info"><strong>TikTok</strong><small>@r4_kroco</small></div>
-          <span class="arrow">↗</span>
-        </a>
-
-        <a class="social-card"
-           href="https://youtube.com/@r4_kroco?si=2V7JydGVISxsE6Cf"
-           target="_blank" rel="noopener noreferrer">
-          <div class="social-icon">▶</div>
-          <div class="social-info"><strong>YouTube</strong><small>R4 KROCO</small></div>
-          <span class="arrow">↗</span>
-        </a>
-
-        <a class="social-card"
+      <div class="hero-buttons">
+        <a class="btn btn-primary"
            href="https://whatsapp.com/channel/0029VbDQPecAO7RM7WDrJq1w"
-           target="_blank" rel="noopener noreferrer">
-          <div class="social-icon">◉</div>
-          <div class="social-info"><strong>WhatsApp Channel</strong><small>R4 KROCO [HSI MAX]</small></div>
-          <span class="arrow">↗</span>
+           target="_blank" rel="noopener">
+          JOIN CHANNEL
         </a>
 
-        <a class="social-card"
-           href="https://juragandmhsimax.github.io/R3ZXSTORE/"
-           target="_blank" rel="noopener noreferrer">
-          <div class="social-icon">◇</div>
-          <div class="social-info"><strong>R3ZX STORE</strong><small>Store & layanan</small></div>
-          <span class="arrow">↗</span>
+        <a class="btn btn-outline"
+           href="https://www.tiktok.com/@r4_kroco?_r=1&_t=ZS-9AnS3OFBXPN"
+           target="_blank" rel="noopener">
+          TIKTOK SAYA
         </a>
       </div>
-    </section>
-  </main>
+    </div>
 
-  <footer>
-    MADE FOR <span>R4 KROCO</span><br>
-    KONOHA · HSI MAX · KEEP CREATING
-  </footer>
-</div>
+    <div class="naruto-stage">
+      <div class="fire-ring"></div>
+
+      <img class="naruto back"
+           src="naruto1.png"
+           alt="Naruto skin pertama"
+           onerror="this.style.display='none'">
+
+      <img class="naruto front"
+           src="naruto2.png"
+           alt="Naruto skin kedua"
+           onerror="this.style.display='none'">
+
+      <div class="skin-label">UZUMAKI NARUTO · FIRE MODE</div>
+    </div>
+  </div>
+
+  <section id="about">
+    <h2 class="section-title">TENTANG <span>SAYA</span></h2>
+    <p class="section-desc">
+      Perjalanan creator dan pemain HSI dari awal sampai sekarang.
+    </p>
+
+    <div class="bio-grid">
+      <div class="bio-card">
+        <small>01 / IDENTITY</small>
+        <h3>CONTENT CREATOR HSI MAX</h3>
+      </div>
+
+      <div class="bio-card">
+        <small>02 / EXPERIENCE</small>
+        <h3>PEMAIN OLD HSI BIASA - MAX</h3>
+      </div>
+
+      <div class="bio-card">
+        <small>03 / JOURNEY</small>
+        <h3>CREATOR BATCH 1 &amp; 2</h3>
+      </div>
+
+      <div class="bio-card">
+        <small>04 / ACHIEVEMENT</small>
+        <h3>Pernah Juara 1 Lomba Cinematic</h3>
+      </div>
+
+      <div class="bio-card">
+        <small>05 / EXPERIENCE</small>
+        <h3>Pernah Menjadi Admin HSI</h3>
+      </div>
+
+      <div class="bio-card">
+        <small>06 / PASSION</small>
+        <h3>Cinematic, Motor &amp; HSI MAX</h3>
+      </div>
+    </div>
+  </section>
+
+  <section id="social">
+    <h2 class="section-title">MY <span>PLATFORMS</span></h2>
+    <p class="section-desc">
+      Temukan konten dan informasi saya di sini.
+    </p>
+
+    <div class="social-grid">
+      <a class="social-card"
+         href="https://www.tiktok.com/@r4_kroco?_r=1&_t=ZS-9AnS3OFBXPN"
+         target="_blank" rel="noopener">
+        <strong>TIKTOK</strong>
+        <span>@r4_kroco · Konten HSI MAX</span>
+      </a>
+
+      <a class="social-card"
+         href="https://youtube.com/@r4_kroco?si=2V7JydGVISxsE6Cf"
+         target="_blank" rel="noopener">
+        <strong>YOUTUBE</strong>
+        <span>Video dan cinematic</span>
+      </a>
+
+      <a class="social-card"
+         href="https://whatsapp.com/channel/0029VbDQPecAO7RM7WDrJq1w"
+         target="_blank" rel="noopener">
+        <strong>WHATSAPP CHANNEL</strong>
+        <span>R4 KROCO [HSI MAX]</span>
+      </a>
+
+      <a class="social-card"
+         href="https://juragandmhsimax.github.io/R3ZXSTORE/"
+         target="_blank" rel="noopener">
+        <strong>R3ZX STORE</strong>
+        <span>Kunjungi website store</span>
+      </a>
+    </div>
+  </section>
+</main>
+
+<footer>
+  © 2026 R4 KROCO · HSI MAX · FIRE ANIME EDITION
+</footer>
 
 <script>
-/* Jika kedua gambar Naruto gagal, tampilkan fallback */
-const characterImages = document.querySelectorAll(".character img");
-const fallback = document.getElementById("imageFallback");
+const container = document.getElementById("embers");
 
-function checkCharacterImages() {
-  const allFailed = [...characterImages].every(
-    img => img.dataset.failed === "true"
-  );
-
-  if (allFailed) fallback.style.display = "flex";
-}
-
-characterImages.forEach(img => {
-  img.addEventListener("error", function () {
-    this.dataset.failed = "true";
-    checkCharacterImages();
-  });
-
-  img.addEventListener("load", function () {
-    this.dataset.failed = "false";
-    fallback.style.display = "none";
-  });
-});
-
-/* Animasi section ketika digulir */
-const sections = document.querySelectorAll(".reveal");
-
-if ("IntersectionObserver" in window) {
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("visible");
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.12 });
-
-  sections.forEach(section => observer.observe(section));
-} else {
-  sections.forEach(section => section.classList.add("visible"));
-}
-
-/* Bara api halus, tidak bereaksi terhadap sentuhan */
-const reducedMotion = window.matchMedia(
-  "(prefers-reduced-motion: reduce)"
-).matches;
-
-if (!reducedMotion) {
-  const container = document.getElementById("embers");
-
-  for (let i = 0; i < 14; i++) {
-    const ember = document.createElement("span");
-    ember.className = "ember";
-    ember.style.setProperty("--x", (Math.random() * 100) + "%");
-    ember.style.setProperty("--size", (2 + Math.random() * 3) + "px");
-    ember.style.setProperty("--duration", (13 + Math.random() * 16) + "s");
-    ember.style.setProperty("--delay", (-Math.random() * 25) + "s");
-    ember.style.setProperty("--drift", (-35 + Math.random() * 70) + "px");
-    container.appendChild(ember);
-  }
+for (let i = 0; i < 28; i++) {
+  const ember = document.createElement("span");
+  ember.className = "ember";
+  ember.style.left = Math.random() * 100 + "%";
+  ember.style.animationDuration = (7 + Math.random() * 9) + "s";
+  ember.style.animationDelay = (Math.random() * 10) + "s";
+  ember.style.width = (2 + Math.random() * 3) + "px";
+  ember.style.height = ember.style.width;
+  container.appendChild(ember);
 }
 </script>
 </body>
